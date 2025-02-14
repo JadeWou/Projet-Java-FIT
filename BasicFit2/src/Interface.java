@@ -35,6 +35,7 @@ public class Interface extends Utilisateur{
 	private JTextField Poids;
 	private JTextField Prenom;
 	private JTextField Taille;
+	private JTextField txtPagePrincipal;
 
 	/**
 	 * Launch the application.
@@ -75,29 +76,25 @@ public class Interface extends Utilisateur{
 	private void initialize () {
 
 		
-		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 558, 365);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 546, 330);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
 		
 	
-		frame.setContentPane(inscription());
-		
-		
+		//frame.setContentPane(inscription());
+		frame.setContentPane(Objectif());
+
+
 		
 	}
 	
 	
-	
+	// PAGE INSCRIPTION
 	JPanel inscription() {
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(123, 164, 72));
+		//panel.setBackground(new Color(123, 164, 72));
 		panel.setBounds(0, 0, 146, 2000);
 		panel.setLayout(null);
 		
@@ -106,7 +103,7 @@ public class Interface extends Utilisateur{
 		txtpnInscription.setFont(new Font("Book Antiqua", Font.PLAIN, 15));
 		txtpnInscription.setForeground(Color.DARK_GRAY);
 		txtpnInscription.setText("inscrit toi !");
-		txtpnInscription.setBounds(275, 11, 97, 47);
+		txtpnInscription.setBounds(236, 11, 97, 47);
 		panel.add(txtpnInscription);
 		
 		JTextPane txtpnNom = new JTextPane();
@@ -114,13 +111,13 @@ public class Interface extends Utilisateur{
 		txtpnNom.setForeground(Color.DARK_GRAY);
 		txtpnNom.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
 		txtpnNom.setText("nom :");
-		txtpnNom.setBounds(160, 62, 29, 20);
+		txtpnNom.setBounds(119, 62, 29, 20);
 		panel.add(txtpnNom);
 		
 		Nom = new JTextField();
 		Nom.setBackground(Color.LIGHT_GRAY);
 		Nom.setForeground(Color.BLACK);
-		Nom.setBounds(199, 62, 96, 20);
+		Nom.setBounds(161, 62, 96, 20);
 		panel.add(Nom);
 		Nom.setColumns(10);
 		
@@ -129,7 +126,7 @@ public class Interface extends Utilisateur{
 		txtpnPrnom.setText("prénom :");
 		txtpnPrnom.setForeground(Color.DARK_GRAY);
 		txtpnPrnom.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-		txtpnPrnom.setBounds(343, 62, 52, 20);
+		txtpnPrnom.setBounds(289, 62, 52, 20);
 		panel.add(txtpnPrnom);
 		
 		JTextPane txtpnAge = new JTextPane();
@@ -137,28 +134,28 @@ public class Interface extends Utilisateur{
 		txtpnAge.setText("age :");
 		txtpnAge.setForeground(Color.DARK_GRAY);
 		txtpnAge.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-		txtpnAge.setBounds(160, 104, 29, 20);
+		txtpnAge.setBounds(119, 104, 29, 20);
 		panel.add(txtpnAge);
 		
 		Age = new JTextField();
 		Age.setForeground(Color.BLACK);
 		Age.setColumns(10);
 		Age.setBackground(Color.LIGHT_GRAY);
-		Age.setBounds(199, 104, 96, 20);
+		Age.setBounds(161, 104, 96, 20);
 		panel.add(Age);
 		
 		Poids = new JTextField();
 		Poids.setForeground(Color.BLACK);
 		Poids.setColumns(10);
 		Poids.setBackground(Color.LIGHT_GRAY);
-		Poids.setBounds(394, 104, 96, 20);
+		Poids.setBounds(362, 104, 96, 20);
 		panel.add(Poids);
 		
 		Prenom = new JTextField();
 		Prenom.setForeground(Color.BLACK);
 		Prenom.setColumns(10);
 		Prenom.setBackground(Color.LIGHT_GRAY);
-		Prenom.setBounds(394, 62, 96, 20);
+		Prenom.setBounds(362, 62, 96, 20);
 		panel.add(Prenom);
 		
 		JTextPane txtpnPoids = new JTextPane();
@@ -166,7 +163,7 @@ public class Interface extends Utilisateur{
 		txtpnPoids.setText("poids (kg) :");
 		txtpnPoids.setForeground(Color.DARK_GRAY);
 		txtpnPoids.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-		txtpnPoids.setBounds(327, 104, 68, 20);
+		txtpnPoids.setBounds(289, 104, 68, 20);
 		panel.add(txtpnPoids);
 		
 		JTextPane txtpnTaille = new JTextPane();
@@ -174,14 +171,14 @@ public class Interface extends Utilisateur{
 		txtpnTaille.setText("taille (cm) :");
 		txtpnTaille.setForeground(Color.DARK_GRAY);
 		txtpnTaille.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-		txtpnTaille.setBounds(236, 146, 68, 20);
+		txtpnTaille.setBounds(188, 146, 68, 20);
 		panel.add(txtpnTaille);
 		
 		Taille = new JTextField();
 		Taille.setForeground(Color.BLACK);
 		Taille.setColumns(10);
 		Taille.setBackground(Color.LIGHT_GRAY);
-		Taille.setBounds(314, 146, 96, 20);
+		Taille.setBounds(266, 146, 96, 20);
 		panel.add(Taille);
 		
 		JButton validerInscription = new JButton("je valide ");
@@ -215,17 +212,18 @@ public class Interface extends Utilisateur{
 			}
 		}
 		});
-		validerInscription.setBounds(283, 217, 89, 23);
+		validerInscription.setBounds(236, 217, 89, 23);
 		panel.add(validerInscription);
 		 return panel;
 	}
 	
 	
+	//PAGE OBJECTIF
 	JPanel Objectif() {
 		JPanel Objectif = new JPanel();
 		Objectif.setBackground(Color.BLACK);
 		Objectif.setBounds(0, 0, 546, 330);
-		frame.getContentPane().add(Objectif);
+		//frame.getContentPane().add(Objectif);
 		Objectif.setLayout(null);
 		
 		JButton btnNewButton_2 = new JButton("Maintien de poids");
@@ -262,5 +260,4 @@ public class Interface extends Utilisateur{
 		
 		return Objectif;
 	}
-	
 }
