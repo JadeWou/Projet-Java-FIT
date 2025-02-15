@@ -13,6 +13,8 @@ public class Utilisateur {
 	int age;
 	double taille;
 	double poids;
+	String sexe ;
+	double apport;
 
 	
 	
@@ -29,17 +31,18 @@ public class Utilisateur {
 //	}
 	public Utilisateur() {}
 	
-	public Utilisateur(String nom, String prenom, Integer age, float taille, float poids) {
+	public Utilisateur(String nom, String prenom, Integer age, float taille, float poids, String sexe) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.age = age;
 		this.taille = taille;
 		this.poids = poids;
+		this.sexe = sexe;
 
 	}
 	
-	public void inscriptionUtilisateur(String inputNom,String inputPrenom,Integer inputAge,float inputTaille,float inputPoids) {
+	public void inscriptionUtilisateur(String inputNom,String inputPrenom,Integer inputAge,float inputTaille,float inputPoids, String sexe) {
 		
 	    String fichierCSV = "utilisateurs.csv";
 	    Path pathFichier  = Paths.get(fichierCSV);
@@ -73,8 +76,15 @@ public class Utilisateur {
 			System.out.println("Utilisateur enregistré");
 
 	}
+	public void calculkcal() { // calcule apport en kcal d'une personnne 
+		if( sexe.equals("H")) {
+			apport= 10* poids + 6.25* taille - 5* age +5 ;
+		}else { 
+			apport= 10 * poids + 6.25*taille -5*age -161 ; 
+		}
+	}
 	
 
-}
+} 
 
 

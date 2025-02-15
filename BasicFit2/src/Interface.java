@@ -36,6 +36,7 @@ public class Interface extends Utilisateur{
 	private JTextField Prenom;
 	private JTextField Taille;
 	private JTextField txtPagePrincipal;
+	private JTextField Sexe;
 
 	/**
 	 * Launch the application.
@@ -84,6 +85,7 @@ public class Interface extends Utilisateur{
 		
 	
 		//frame.setContentPane(inscription());
+		
 		frame.setContentPane(Objectif());
 
 
@@ -94,94 +96,111 @@ public class Interface extends Utilisateur{
 	// PAGE INSCRIPTION
 	JPanel inscription() {
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(184, 197, 76));
 		//panel.setBackground(new Color(123, 164, 72));
 		panel.setBounds(0, 0, 146, 2000);
 		panel.setLayout(null);
 		
 		JTextPane txtpnInscription = new JTextPane();
+		txtpnInscription.setBackground(new Color(114, 104, 192));
 		txtpnInscription.setEditable(false);
 		txtpnInscription.setFont(new Font("Book Antiqua", Font.PLAIN, 15));
-		txtpnInscription.setForeground(Color.DARK_GRAY);
+		txtpnInscription.setForeground(new Color(255, 255, 255));
 		txtpnInscription.setText("inscrit toi !");
-		txtpnInscription.setBounds(236, 11, 97, 47);
+		txtpnInscription.setBounds(216, 11, 97, 47);
 		panel.add(txtpnInscription);
 		
 		JTextPane txtpnNom = new JTextPane();
+		txtpnNom.setBackground(new Color(114, 104, 192));
 		txtpnNom.setEditable(false);
-		txtpnNom.setForeground(Color.DARK_GRAY);
+		txtpnNom.setForeground(new Color(255, 255, 255));
 		txtpnNom.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
 		txtpnNom.setText("nom :");
-		txtpnNom.setBounds(119, 62, 29, 20);
+		txtpnNom.setBounds(116, 87, 29, 20);
 		panel.add(txtpnNom);
 		
 		Nom = new JTextField();
 		Nom.setBackground(Color.LIGHT_GRAY);
 		Nom.setForeground(Color.BLACK);
-		Nom.setBounds(161, 62, 96, 20);
+		Nom.setBounds(155, 87, 96, 20);
 		panel.add(Nom);
 		Nom.setColumns(10);
 		
 		JTextPane txtpnPrnom = new JTextPane();
+		txtpnPrnom.setBackground(new Color(114, 104, 192));
 		txtpnPrnom.setEditable(false);
 		txtpnPrnom.setText("prénom :");
-		txtpnPrnom.setForeground(Color.DARK_GRAY);
+		txtpnPrnom.setForeground(new Color(255, 255, 255));
 		txtpnPrnom.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-		txtpnPrnom.setBounds(289, 62, 52, 20);
+		txtpnPrnom.setBounds(294, 87, 68, 20);
 		panel.add(txtpnPrnom);
 		
 		JTextPane txtpnAge = new JTextPane();
+		txtpnAge.setBackground(new Color(114, 104, 192));
 		txtpnAge.setEditable(false);
 		txtpnAge.setText("age :");
-		txtpnAge.setForeground(Color.DARK_GRAY);
+		txtpnAge.setForeground(new Color(255, 255, 255));
 		txtpnAge.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-		txtpnAge.setBounds(119, 104, 29, 20);
+		txtpnAge.setBounds(116, 135, 29, 20);
 		panel.add(txtpnAge);
 		
 		Age = new JTextField();
 		Age.setForeground(Color.BLACK);
 		Age.setColumns(10);
 		Age.setBackground(Color.LIGHT_GRAY);
-		Age.setBounds(161, 104, 96, 20);
+		Age.setBounds(155, 135, 96, 20);
 		panel.add(Age);
 		
 		Poids = new JTextField();
 		Poids.setForeground(Color.BLACK);
 		Poids.setColumns(10);
 		Poids.setBackground(Color.LIGHT_GRAY);
-		Poids.setBounds(362, 104, 96, 20);
+		Poids.setBounds(372, 135, 96, 20);
 		panel.add(Poids);
 		
 		Prenom = new JTextField();
 		Prenom.setForeground(Color.BLACK);
 		Prenom.setColumns(10);
 		Prenom.setBackground(Color.LIGHT_GRAY);
-		Prenom.setBounds(362, 62, 96, 20);
+		Prenom.setBounds(372, 87, 96, 20);
 		panel.add(Prenom);
 		
 		JTextPane txtpnPoids = new JTextPane();
+		txtpnPoids.setBackground(new Color(114, 104, 192));
 		txtpnPoids.setEditable(false);
 		txtpnPoids.setText("poids (kg) :");
-		txtpnPoids.setForeground(Color.DARK_GRAY);
+		txtpnPoids.setForeground(new Color(255, 255, 255));
 		txtpnPoids.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-		txtpnPoids.setBounds(289, 104, 68, 20);
+		txtpnPoids.setBounds(294, 135, 68, 20);
 		panel.add(txtpnPoids);
 		
 		JTextPane txtpnTaille = new JTextPane();
+		txtpnTaille.setBackground(new Color(114, 104, 192));
 		txtpnTaille.setEditable(false);
 		txtpnTaille.setText("taille (cm) :");
-		txtpnTaille.setForeground(Color.DARK_GRAY);
+		txtpnTaille.setForeground(new Color(255, 255, 255));
 		txtpnTaille.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-		txtpnTaille.setBounds(188, 146, 68, 20);
+		txtpnTaille.setBounds(79, 186, 68, 20);
 		panel.add(txtpnTaille);
 		
 		Taille = new JTextField();
 		Taille.setForeground(Color.BLACK);
 		Taille.setColumns(10);
 		Taille.setBackground(Color.LIGHT_GRAY);
-		Taille.setBounds(266, 146, 96, 20);
+		Taille.setBounds(155, 186, 96, 20);
 		panel.add(Taille);
 		
+		JTextPane txtpnBmabma = new JTextPane();
+		txtpnBmabma.setForeground(new Color(255, 255, 255));
+		txtpnBmabma.setBackground(new Color(71, 58, 179));
+		txtpnBmabma.setFont(new Font("Impact", Font.PLAIN, 44));
+		txtpnBmabma.setText("FIT");
+		txtpnBmabma.setEditable(false);
+		txtpnBmabma.setBounds(34, 23, 65, 61);
+		panel.add(txtpnBmabma);
+		
 		JButton validerInscription = new JButton("je valide ");
+		validerInscription.setForeground(new Color(114, 104, 192));
 		validerInscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String strPrenom = Prenom.getText();
@@ -189,31 +208,50 @@ public class Interface extends Utilisateur{
 				String strAge = Age.getText();
 				String strPoids = Poids.getText();
 				String strTaille = Taille.getText();
+				String strSexe = Sexe.getText(); 
 				
-				
-				if(strPrenom.equals("") || strNom.equals("") || strAge.equals("") || strPoids.equals("") || strTaille.equals("")) {
+				if(strPrenom.equals("") || strNom.equals("") || strAge.equals("") || strPoids.equals("") || strTaille.equals("")|| strSexe.equals(""))  {
 					
 					JOptionPane.showMessageDialog(frame,"Il faut nécessairement remplir toutes les informations","Attention",JOptionPane.WARNING_MESSAGE);
 
 			
 			}else {
-				
+				if ( !strSexe.equals("H") && !strSexe.equals("F")) {// si il met autre chose que H ou F dans sexe 
+					JOptionPane.showMessageDialog(frame,"Merci de bien spécifier F pour femme ou H pour homme, le calcul de l'apport en Kcal varie en fonction du sexe","Attention",JOptionPane.WARNING_MESSAGE);
+				}else {
 				try {
 				Integer intAge = Integer.parseInt(strAge);
 				Float floatPoids = Float.parseFloat(strPoids);
 				Float floatTaille = Float.parseFloat(strTaille);
 				frame.setContentPane(Objectif()); 
-				inscriptionUtilisateur(strNom,strPrenom,intAge,floatPoids,floatTaille);
+				inscriptionUtilisateur(strNom,strPrenom,intAge,floatPoids,floatTaille,strSexe);
 				}catch (Exception ex){
 		            // Affiche une boîte de dialogue en cas d'erreur
-		            JOptionPane.showMessageDialog(null, "Ca marche pas niquez vous ", "Erreur", JOptionPane.ERROR_MESSAGE);
+		            JOptionPane.showMessageDialog(null, "il faut mettre des chiffre dans age poids et taille", "Erreur", JOptionPane.ERROR_MESSAGE);
 		        }
 				
+		
 			}
-		}
+		}}
 		});
-		validerInscription.setBounds(236, 217, 89, 23);
+		validerInscription.setBounds(236, 266, 89, 23);
 		panel.add(validerInscription);
+		
+		JTextPane txtpnSexe = new JTextPane();
+		txtpnSexe.setText("Sexe : (H/F)");
+		txtpnSexe.setForeground(Color.WHITE);
+		txtpnSexe.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
+		txtpnSexe.setEditable(false);
+		txtpnSexe.setBackground(new Color(114, 104, 192));
+		txtpnSexe.setBounds(294, 186, 68, 20);
+		panel.add(txtpnSexe);
+		
+		Sexe = new JTextField();
+		Sexe.setForeground(Color.BLACK);
+		Sexe.setColumns(10);
+		Sexe.setBackground(Color.LIGHT_GRAY);
+		Sexe.setBounds(372, 186, 96, 20);
+		panel.add(Sexe);
 		 return panel;
 	}
 	
@@ -221,41 +259,49 @@ public class Interface extends Utilisateur{
 	//PAGE OBJECTIF
 	JPanel Objectif() {
 		JPanel Objectif = new JPanel();
-		Objectif.setBackground(Color.BLACK);
+		Objectif.setBackground(new Color(184, 197, 76));
 		Objectif.setBounds(0, 0, 546, 330);
 		//frame.getContentPane().add(Objectif);
 		Objectif.setLayout(null);
 		
-		JButton btnNewButton_2 = new JButton("Maintien de poids");
-		btnNewButton_2.setBounds(218, 175, 121, 23);
-		Objectif.add(btnNewButton_2);
+		JButton maintien = new JButton("Maintien de poids");
+		maintien.setForeground(new Color(255, 255, 255));
+		maintien.setBackground(new Color(114, 104, 192));
+		maintien.setBounds(218, 152, 146, 68);
+		Objectif.add(maintien);
 		
-		JButton btnNewButton_1 = new JButton("Perte de poids");
-		btnNewButton_1.setBounds(218, 130, 121, 23);
-		Objectif.add(btnNewButton_1);
+		JButton perte = new JButton("Perte de poids");
+		perte.setForeground(new Color(255, 255, 255));
+		perte.setBackground(new Color(114, 104, 192));
+		perte.setBounds(39, 152, 146, 68);
+		Objectif.add(perte);
 		
 		Canvas canvas = new Canvas();
 		canvas.setBounds(374, 16, 0, 0);
 		Objectif.add(canvas);
 		
-		JButton btnNewButton_3 = new JButton("Prise de poids");
-		btnNewButton_3.setBounds(218, 220, 121, 23);
-		Objectif.add(btnNewButton_3);
+		JButton prise = new JButton("Prise de poids");
+		prise.setForeground(new Color(255, 255, 255));
+		prise.setBackground(new Color(114, 104, 192));
+		prise.setBounds(390, 152, 146, 68);
+		Objectif.add(prise);
 		
 		JTextArea txtrQuelEstVotre = new JTextArea();
+		txtrQuelEstVotre.setBackground(new Color(114, 104, 192));
+		txtrQuelEstVotre.setForeground(new Color(255, 255, 255));
 		txtrQuelEstVotre.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtrQuelEstVotre.setText("Quel est votre objectif ?");
 		txtrQuelEstVotre.setEditable(false);
-		txtrQuelEstVotre.setBounds(218, 85, 121, 23);
+		txtrQuelEstVotre.setBounds(218, 85, 121, 34);
 		Objectif.add(txtrQuelEstVotre);
 		
 		JTextPane txtpnBmabma = new JTextPane();
-		txtpnBmabma.setForeground(new Color(0, 0, 0));
-		txtpnBmabma.setBackground(Color.ORANGE);
+		txtpnBmabma.setForeground(new Color(255, 255, 255));
+		txtpnBmabma.setBackground(new Color(71, 58, 179));
 		txtpnBmabma.setFont(new Font("Impact", Font.PLAIN, 44));
 		txtpnBmabma.setText("FIT");
 		txtpnBmabma.setEditable(false);
-		txtpnBmabma.setBounds(122, 28, 65, 61);
+		txtpnBmabma.setBounds(61, 23, 65, 61);
 		Objectif.add(txtpnBmabma);
 		
 		return Objectif;
