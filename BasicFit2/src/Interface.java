@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JSplitPane;
 import java.awt.Color;
 import javax.swing.JTextPane;
@@ -15,6 +16,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -31,6 +33,9 @@ import javax.swing.JDesktopPane;
 import javax.swing.JToolBar;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
@@ -115,9 +120,15 @@ public class Interface extends Utilisateur{
 
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 558, 365);
+		frame.setSize(800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null); // Centrer la fenêtre
+		
+		frame.setTitle("FIT App");
+		ImageIcon appIcon = new ImageIcon("image/logo.png"); // Remplacez le chemin avec celui de votre icône
+        frame.setIconImage(appIcon.getImage());  // Définir l'icône de la fenêtre
+
 		
 		
 	
@@ -129,61 +140,103 @@ public class Interface extends Utilisateur{
 		
 	}
 	
-	
-JPanel connexion() {
+	//PAGE CONNEXION	
+	JPanel connexion() {
 		
 	    String fichier = "utilisateurs.csv"; 
 	
 		JPanel panel = new JPanel();
-	    panel.setBackground(new Color(184, 197, 76));
-	    panel.setBounds(0, 0, 546, 330);
-	    panel.setLayout(null);
-	    //frame.add(panel);
-	    
-	    JTextPane title = new JTextPane();
-		    title.setForeground(new Color(255, 255, 255));
-		    title.setBackground(new Color(71, 58, 179));
-		    title.setFont(new Font("Impact", Font.PLAIN, 44));
-		    title.setText("FIT");
-		    title.setEditable(false);
-		    title.setBounds(61, 23, 65, 61);
-		    panel.add(title);
-	    
+			panel.setLayout(new GridBagLayout());
+	        panel.setBackground(Color.decode("#f0f8f0"));  // Fond légèrement vert
+
+	     // Charger l'image
+	        String imagePath = "image/logo.png";  // Chemin de votre image
+	        ImageIcon originalImageIcon = new ImageIcon(imagePath);
+	        Image originalImage = originalImageIcon.getImage();
+	        // Redimensionner l'image (par exemple, pour la redimensionner à 100x100 pixels)
+	        Image resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);  // Taille ajustée
+	        // Créer un nouveau ImageIcon avec l'image redimensionnée
+	        ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
+	        // Créer un JLabel avec l'image redimensionnée
+	        JLabel imageLabel = new JLabel(resizedImageIcon);
+	        
 		    
-	    JLabel userLabel = new JLabel("Pseudo:");
-		    userLabel.setBounds(150, 100, 80, 25);
-		    panel.add(userLabel);
+		JLabel userLabel = new JLabel("Pseudo :");    
+		JTextField userText = new JTextField(20);    
+
+		JLabel passwordLabel = new JLabel("Mot de passe :");
+		JPasswordField passwordText = new JPasswordField(20);
+
 	    
-		    
-	    JTextField userText = new JTextField(20);
-		    userText.setBounds(250, 100, 165, 25);
-		    panel.add(userText);
+		JButton loginButton = new JButton("Se connecter");	    
+		JButton registerButton = new JButton("Je n'ai pas encore de compte");
 	    
-	    JLabel passwordLabel = new JLabel("Mot de passe:");
-		    passwordLabel.setBounds(150, 140, 100, 25);
-		    panel.add(passwordLabel);
-	    
-	    JPasswordField passwordText = new JPasswordField(20);
-		    passwordText.setBounds(250, 140, 165, 25);
-		    panel.add(passwordText);
-	    
-	    JButton loginButton = new JButton("Se connecter");
-		    loginButton.setForeground(new Color(255, 255, 255));
-		    loginButton.setBackground(new Color(114, 104, 192));
-		    loginButton.setBounds(200, 190, 150, 40);
-		    panel.add(loginButton);
-	    
-	    JButton registerButton = new JButton("Je n'ai pas de compte");
-		    registerButton.setForeground(new Color(255, 255, 255));
-		    registerButton.setBackground(new Color(114, 104, 192));
-		    registerButton.setBounds(20, 250, 200, 40);
-		    panel.add(registerButton);
-	    
-	    JLabel messageLabel = new JLabel("");
-		    messageLabel.setBounds(150, 280, 300, 25);
-		    panel.add(messageLabel);
-	    
-		    
+		// Styles des labels
+			userLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+			passwordLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+			
+		// Personnaliser les champs de texte
+			userText.setBorder(BorderFactory.createLineBorder(Color.decode("#84B59F"), 2));  // Bordure verte
+			passwordText.setBorder(BorderFactory.createLineBorder(Color.decode("#84B59F"), 2));  // Bordure verte
+			userText.setFont(new Font("Arial", Font.PLAIN, 14));
+			passwordText.setFont(new Font("Arial", Font.PLAIN, 14));
+		
+			
+		// Personnaliser les boutons
+	        loginButton.setBackground(Color.decode("#84B59F")); // Vert pour le bouton "Se connecter"
+	        loginButton.setForeground(Color.white);
+	        loginButton.setFont(new Font("Arial", Font.BOLD, 14));
+	        loginButton.setFocusPainted(false);
+	        loginButton.setPreferredSize(new Dimension(300, 40));
+        
+	        registerButton.setBackground(Color.decode("#84B59F")); // Un vert plus clair pour "Je n'ai pas encore de compte"
+	        registerButton.setForeground(Color.white);
+	        registerButton.setFont(new Font("Arial", Font.BOLD, 14));
+	        registerButton.setFocusPainted(false);
+	        registerButton.setPreferredSize(new Dimension(300, 40));
+	        
+	     
+	     // Ajouter des espaces pour l'espacement des composants
+	        GridBagConstraints gbc = new GridBagConstraints();
+	        gbc.insets = new Insets(10, 10, 10, 10);
+	        gbc.anchor = GridBagConstraints.CENTER;  // Centrer les composants   
+	        
+	        
+	     // Ajouter l'image redimensionnée en haut au centre
+	        gbc.gridx = 0;
+	        gbc.gridy = 0;
+	        gbc.gridwidth = 2;  // L'image occupe deux colonnes
+	        panel.add(imageLabel, gbc);
+	        
+	        
+	     // Ajouter les autres composants au panneau
+	        gbc.gridx = 0;
+	        gbc.gridy = 1;
+	        gbc.gridwidth = 1;
+	        panel.add(userLabel, gbc);
+
+	        gbc.gridx = 1;
+	        gbc.gridy = 1;
+	        panel.add(userText, gbc);
+
+	        gbc.gridx = 0;
+	        gbc.gridy = 2;
+	        panel.add(passwordLabel, gbc);
+
+	        gbc.gridx = 1;
+	        gbc.gridy = 2;
+	        panel.add(passwordText, gbc);
+
+	        gbc.gridx = 0;
+	        gbc.gridy = 3;
+	        gbc.gridwidth = 2;
+	        panel.add(loginButton, gbc);
+
+	        gbc.gridx = 0;
+	        gbc.gridy = 4;
+	        gbc.gridwidth = 2;
+	        panel.add(registerButton, gbc);
+		
 		    
 	    // ActionListener pour le bouton "Je n'ai pas de compte"
 	    registerButton.addActionListener(new ActionListener(){
@@ -191,7 +244,10 @@ JPanel connexion() {
 		        public void actionPerformed(ActionEvent e) {
 		            try {
 		                //Interface window = new Interface();
-		                frame.setContentPane(inscription());;
+		                frame.setContentPane(inscription());
+		                frame.revalidate();
+		                frame.repaint();
+		                
 		            } catch (Exception ex) {
 		                ex.printStackTrace();
 		            }
@@ -261,167 +317,129 @@ JPanel connexion() {
 	JPanel inscription() {
 			
 			JPanel panel = new JPanel();
-				panel.setBackground(new Color(184, 197, 76));
-				//panel.setBackground(new Color(123, 164, 72));
-				panel.setBounds(0, 0, 146, 2000);
-				panel.setLayout(null);
+				panel.setLayout(new GridBagLayout());
+		        panel.setBackground(Color.decode("#f0f8f0"));  // Fond légèrement vert
+
 			
-			JTextPane txtpnInscription = new JTextPane();
-				txtpnInscription.setBackground(new Color(114, 104, 192));
-				txtpnInscription.setEditable(false);
-				txtpnInscription.setFont(new Font("Book Antiqua", Font.PLAIN, 15));
-				txtpnInscription.setForeground(new Color(255, 255, 255));
-				txtpnInscription.setText("Inscrits toi !");
-				txtpnInscription.setBounds(216, 11, 97, 47);
-				panel.add(txtpnInscription);
+		    JLabel titleLabel = new JLabel("Inscription", JLabel.CENTER);
+		        titleLabel.setFont(new Font("Book Antiqua", Font.BOLD, 44));
+		        titleLabel.setForeground(Color.decode("#50808E"));
 			
-			JTextPane txtpnNom = new JTextPane();
-				txtpnNom.setBackground(new Color(114, 104, 192));
-				txtpnNom.setEditable(false);
-				txtpnNom.setForeground(new Color(255, 255, 255));
-				txtpnNom.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-				txtpnNom.setText("Nom :");
-				txtpnNom.setBounds(107, 87, 38, 20);
-				panel.add(txtpnNom);
-			
-				Nom = new JTextField();
-				Nom.setBackground(Color.LIGHT_GRAY);
-				Nom.setForeground(Color.BLACK);
-				Nom.setBounds(155, 87, 96, 20);
-				panel.add(Nom);
-				Nom.setColumns(10);
-			
-			JTextPane txtpnPrnom = new JTextPane();
-				txtpnPrnom.setBackground(new Color(114, 104, 192));
-				txtpnPrnom.setEditable(false);
-				txtpnPrnom.setText("Prénom :");
-				txtpnPrnom.setForeground(new Color(255, 255, 255));
-				txtpnPrnom.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-				txtpnPrnom.setBounds(294, 87, 68, 20);
-				panel.add(txtpnPrnom);
-				
-				Prenom = new JTextField();
-				Prenom.setForeground(Color.BLACK);
-				Prenom.setColumns(10);
-				Prenom.setBackground(Color.LIGHT_GRAY);
-				Prenom.setBounds(372, 87, 96, 20);
-				panel.add(Prenom);
-			
-			JTextPane txtpnAge = new JTextPane();
-				txtpnAge.setBackground(new Color(114, 104, 192));
-				txtpnAge.setEditable(false);
-				txtpnAge.setText("Age :");
-				txtpnAge.setForeground(new Color(255, 255, 255));
-				txtpnAge.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-				txtpnAge.setBounds(107, 135, 38, 20);
-				panel.add(txtpnAge);
-			
-				Age = new JTextField();
-				Age.setForeground(Color.BLACK);
-				Age.setColumns(10);
-				Age.setBackground(Color.LIGHT_GRAY);
-				Age.setBounds(155, 135, 96, 20);
-				panel.add(Age);
-			
-			
-			JTextPane txtpnPoids = new JTextPane();
-				txtpnPoids.setBackground(new Color(114, 104, 192));
-				txtpnPoids.setEditable(false);
-				txtpnPoids.setText("Poids (kg) :");
-				txtpnPoids.setForeground(new Color(255, 255, 255));
-				txtpnPoids.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-				txtpnPoids.setBounds(294, 135, 68, 20);
-				panel.add(txtpnPoids);
-				
-				Poids = new JTextField();
-				Poids.setForeground(Color.BLACK);
-				Poids.setColumns(10);
-				Poids.setBackground(Color.LIGHT_GRAY);
-				Poids.setBounds(372, 135, 96, 20);
-				panel.add(Poids);
-			
-			JTextPane txtpnTaille = new JTextPane();
-				txtpnTaille.setBackground(new Color(114, 104, 192));
-				txtpnTaille.setEditable(false);
-				txtpnTaille.setText("Taille (cm) :");
-				txtpnTaille.setForeground(new Color(255, 255, 255));
-				txtpnTaille.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-				txtpnTaille.setBounds(80, 176, 68, 20);
-				panel.add(txtpnTaille);
-				
-				Taille = new JTextField();
-				Taille.setForeground(Color.BLACK);
-				Taille.setColumns(10);
-				Taille.setBackground(Color.LIGHT_GRAY);
-				Taille.setBounds(156, 176, 96, 20);
-				panel.add(Taille);
-			
-			JTextPane txtpnBmabma = new JTextPane();
-				txtpnBmabma.setForeground(new Color(255, 255, 255));
-				txtpnBmabma.setBackground(new Color(71, 58, 179));
-				txtpnBmabma.setFont(new Font("Impact", Font.PLAIN, 44));
-				txtpnBmabma.setText("FIT");
-				txtpnBmabma.setEditable(false);
-				txtpnBmabma.setBounds(34, 23, 65, 61);
-				panel.add(txtpnBmabma);
-				
-				
-				
-				JTextPane txtpnSexe = new JTextPane();
-				txtpnSexe.setText("Sexe : (H/F)");
-				txtpnSexe.setForeground(Color.WHITE);
-				txtpnSexe.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-				txtpnSexe.setEditable(false);
-				txtpnSexe.setBackground(new Color(114, 104, 192));
-				txtpnSexe.setBounds(295, 176, 68, 20);
-				panel.add(txtpnSexe);
-			
-				Sexe = new JTextField();
-				Sexe.setForeground(Color.BLACK);
-				Sexe.setColumns(10);
-				Sexe.setBackground(Color.LIGHT_GRAY);
-				Sexe.setBounds(373, 176, 96, 20);
-				panel.add(Sexe);
-			
-			JTextPane txtpnMotDePasse = new JTextPane();
-				txtpnMotDePasse.setText("Mot de passe :");
-				txtpnMotDePasse.setForeground(Color.WHITE);
-				txtpnMotDePasse.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-				txtpnMotDePasse.setEditable(false);
-				txtpnMotDePasse.setBackground(new Color(114, 104, 192));
-				txtpnMotDePasse.setBounds(275, 223, 89, 20);
-				panel.add(txtpnMotDePasse);
-				
-				textField = new JTextField();
-				textField.setForeground(Color.BLACK);
-				textField.setColumns(10);
-				textField.setBackground(Color.LIGHT_GRAY);
-				textField.setBounds(372, 223, 96, 20);
-				panel.add(textField);
-			
-			JTextPane txtpnIdentifiant = new JTextPane();
-				txtpnIdentifiant.setText("Identifiant :");
-				txtpnIdentifiant.setForeground(Color.WHITE);
-				txtpnIdentifiant.setFont(new Font("Book Antiqua", Font.PLAIN, 11));
-				txtpnIdentifiant.setEditable(false);
-				txtpnIdentifiant.setBackground(new Color(114, 104, 192));
-				txtpnIdentifiant.setBounds(70, 223, 77, 20);
-				panel.add(txtpnIdentifiant);
-				
-				textField_1 = new JTextField();
-				textField_1.setForeground(Color.BLACK);
-				textField_1.setColumns(10);
-				textField_1.setBackground(Color.LIGHT_GRAY);
-				textField_1.setBounds(155, 223, 96, 20);
-				panel.add(textField_1);
-				
-				
-			
-			JButton validerInscription = new JButton("je valide ");
-				validerInscription.setForeground(new Color(114, 104, 192));
-				validerInscription.setBounds(236, 266, 89, 23);
-				panel.add(validerInscription);
-				
+		    JLabel labelNom = new JLabel("Nom :");
+		    JLabel labelPrenom = new JLabel("Prénom :");
+	        JLabel labelAge = new JLabel("Âge :");
+	        JLabel labelPoids = new JLabel("Poids (kg) :");
+	        JLabel labelTaille = new JLabel("Taille (cm) :");
+	        JLabel labelSexe = new JLabel("Sexe (H/F) :");
+	        JLabel labelEmail = new JLabel("E-mail :");
+	        JLabel labelPassword = new JLabel("Mot de passe :");
+	        
+	        JTextField Nom = new JTextField(20);
+	        JTextField Prenom = new JTextField(20);
+	        JTextField Age = new JTextField(20);
+	        JTextField Poids = new JTextField(20);
+	        JTextField Taille = new JTextField(20);
+	        
+	        JTextField Sexe = new JTextField(20);
+	        
+	        JTextField fieldEmail = new JTextField(20);
+	        JPasswordField fieldPassword = new JPasswordField(20);
+	        		
+		
+			// Créer un bouton pour l'inscription
+			JButton validerInscription = new JButton("S'inscrire");
+				validerInscription.setBackground(Color.decode("#50808E")); // Vert pour le bouton
+				validerInscription.setForeground(Color.white);
+				validerInscription.setFont(new Font("Arial", Font.BOLD, 14));
+				validerInscription.setFocusPainted(false);
+				validerInscription.setPreferredSize(new Dimension(200, 40));
+		        
+		    // Utiliser GridBagLayout pour aligner les éléments
+		        GridBagConstraints gbc = new GridBagConstraints();
+		        gbc.insets = new Insets(10, 10, 10, 10);  // Ajouter des espacements entre les éléments
+		        gbc.anchor = GridBagConstraints.CENTER;  // Centrer les éléments
+
+		     // Placer le titre
+		        gbc.gridx = 0;
+		        gbc.gridy = 0;
+		        gbc.gridwidth = 2;  // Faire en sorte que le titre occupe toute la largeur
+		        panel.add(titleLabel, gbc);
+
+		        // Créer un panel avec une bordure pour entourer les informations (sans le bouton)
+		        JPanel infoPanel = new JPanel();
+		        infoPanel.setLayout(new GridBagLayout());
+		        infoPanel.setBackground(Color.decode("#f0f8f0")); // Fond légèrement vert
+		        infoPanel.setBorder(BorderFactory.createLineBorder(Color.decode("#50808E"), 2)); // Bordure verte
+
+			        // Placer le label et le champ de saisie pour le nom
+			        gbc.gridwidth = 1;  // Réinitialiser à une seule colonne
+			        gbc.gridy = 0;
+			        infoPanel.add(labelNom, gbc);
+			        gbc.gridx = 1;
+			        infoPanel.add(Nom, gbc);
+	
+			        // Placer le label et le champ de saisie pour le prénom
+			        gbc.gridx = 0;
+			        gbc.gridy = 1;
+			        infoPanel.add(labelPrenom, gbc);
+			        gbc.gridx = 1;
+			        infoPanel.add(Prenom, gbc);
+	
+			        // Placer le label et le champ de saisie pour l'âge
+			        gbc.gridx = 0;
+			        gbc.gridy = 2;
+			        infoPanel.add(labelAge, gbc);
+			        gbc.gridx = 1;
+			        infoPanel.add(Age, gbc);
+	
+			        // Placer le label et le champ de saisie pour le poids
+			        gbc.gridx = 0;
+			        gbc.gridy = 3;
+			        infoPanel.add(labelPoids, gbc);
+			        gbc.gridx = 1;
+			        infoPanel.add(Poids, gbc);
+	
+			        // Placer le label et le champ de saisie pour la taille
+			        gbc.gridx = 0;
+			        gbc.gridy = 4;
+			        infoPanel.add(labelTaille, gbc);
+			        gbc.gridx = 1;
+			        infoPanel.add(Taille, gbc);
+	
+			        // Placer le label et le combo box pour le sexe
+			        gbc.gridx = 0;
+			        gbc.gridy = 5;
+			        infoPanel.add(labelSexe, gbc);
+			        gbc.gridx = 1;
+			        infoPanel.add(Sexe, gbc);
+	
+			        // Placer le label et le champ de saisie pour l'email
+			        gbc.gridx = 0;
+			        gbc.gridy = 6;
+			        infoPanel.add(labelEmail, gbc);
+			        gbc.gridx = 1;
+			        infoPanel.add(fieldEmail, gbc);
+	
+			        // Placer le label et le champ de saisie pour le mot de passe
+			        gbc.gridx = 0;
+			        gbc.gridy = 7;
+			        infoPanel.add(labelPassword, gbc);
+			        gbc.gridx = 1;
+			        infoPanel.add(fieldPassword, gbc);
+	
+			        // Placer le bouton d'inscription (sans la bordure)
+			        gbc.gridx = 0;
+			        gbc.gridy = 8;
+			        gbc.gridwidth = 2;
+			        panel.add(infoPanel, gbc);  // Ajouter le panel avec les informations dans le panel principal
+	
+			        // Placer le bouton en dehors de la bordure
+			        gbc.gridx = 0;
+			        gbc.gridy = 9;
+			        panel.add(validerInscription, gbc);	
+					
+					
+					
 				
 			//ACTION DU BOUTON VALIDER	
 			validerInscription.addActionListener(new ActionListener() {
@@ -432,13 +450,13 @@ JPanel connexion() {
 					String strAge = Age.getText();
 					String strPoids = Poids.getText();
 					String strTaille = Taille.getText();
-					String strSexe = Sexe.getText(); 
-					String strid = textField_1.getText();
-					String strmdp= textField.getText();
+					String strSexe = Sexe.getText();					
+					String strid = fieldEmail.getText();
+					String strmdp= new String(fieldPassword.getPassword());
 					String strobj= " "; 
 					
-					String pseudo = textField_1.getText();
-		            String password = new String(textField.getText());
+					String pseudo = fieldEmail.getText();
+		            String password = new String(fieldPassword.getPassword());
 		            
 		            setPseudo(pseudo);
 		            setPassword(password);
@@ -484,52 +502,81 @@ JPanel connexion() {
 	JPanel Objectif() {
 		
 			JPanel Objectif = new JPanel();
-				Objectif.setBackground(new Color(184, 197, 76));
-				Objectif.setBounds(0, 0, 546, 330);
-				//frame.getContentPane().add(Objectif);
-				Objectif.setLayout(null);
+				Objectif.setLayout(new GridBagLayout());
+				Objectif.setBackground(Color.decode("#f0f8f0"));  // Fond légèrement vert
+		
 			
-			JButton maintien = new JButton("Maintien de poids");
-				maintien.setForeground(new Color(255, 255, 255));
-				maintien.setBackground(new Color(114, 104, 192));
-				maintien.setBounds(218, 152, 146, 68);
-				Objectif.add(maintien);
-				
-			JButton perte = new JButton("Perte de poids");
-				perte.setForeground(new Color(255, 255, 255));
-				perte.setBackground(new Color(114, 104, 192));
-				perte.setBounds(39, 152, 146, 68);
-				Objectif.add(perte);
-			
-	//		Canvas canvas = new Canvas();
-	//		canvas.setBounds(374, 16, 0, 0);
-	//		Objectif.add(canvas);
-			
-			JButton prise = new JButton("Prise de poids");
-				prise.setForeground(new Color(255, 255, 255));
-				prise.setBackground(new Color(114, 104, 192));
-				prise.setBounds(390, 152, 146, 68);
-				Objectif.add(prise);
-			
-			JTextArea txtrQuelEstVotre = new JTextArea();
-				txtrQuelEstVotre.setBackground(new Color(114, 104, 192));
-				txtrQuelEstVotre.setForeground(new Color(255, 255, 255));
-				txtrQuelEstVotre.setFont(new Font("Tahoma", Font.PLAIN, 11));
-				txtrQuelEstVotre.setText("Quel est votre objectif ?");
-				txtrQuelEstVotre.setEditable(false);
-				txtrQuelEstVotre.setBounds(229, 50, 121, 34);
-				Objectif.add(txtrQuelEstVotre);
-			
-			JTextPane txtpnBmabma = new JTextPane();
-				txtpnBmabma.setForeground(new Color(255, 255, 255));
-				txtpnBmabma.setBackground(new Color(71, 58, 179));
-				txtpnBmabma.setFont(new Font("Impact", Font.PLAIN, 44));
-				txtpnBmabma.setText("FIT");
-				txtpnBmabma.setEditable(false);
-				txtpnBmabma.setBounds(61, 23, 65, 61);
-				Objectif.add(txtpnBmabma);
-			
-				
+				ImageIcon originalImageIcon = new ImageIcon("image/logo.png");  // Remplacez par le chemin de votre image
+		        Image originalImage = originalImageIcon.getImage();
+		        Image resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);  // Redimensionner l'image
+		        ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
+		        JLabel imageLabel = new JLabel(resizedImageIcon);
+		     
+		        
+		    JLabel titleLabel = new JLabel("Quel est votre objectif ?", JLabel.CENTER);
+		        titleLabel.setFont(new Font("Book Antiqua", Font.BOLD, 36));
+		        titleLabel.setForeground(Color.decode("#84B59F"));     
+		    
+		        
+		    
+		        JButton perte = new JButton("Perte de poids");
+		        JButton prise = new JButton("Prise de poids");
+		        JButton maintien = new JButton("Maintien de poids");
+		    
+		        
+		        //POSITIONNEMENT APPARENCE SETUP
+			        perte.setBackground(Color.decode("#84B59F"));
+			        perte.setForeground(Color.white);
+			        perte.setFont(new Font("Arial", Font.BOLD, 18));  // Texte plus gros
+			        perte.setFocusPainted(false);
+			        perte.setPreferredSize(new Dimension(300, 60)); // Bouton plus grand
+	
+			        prise.setBackground(Color.decode("#84B59F"));
+			        prise.setForeground(Color.white);
+			        prise.setFont(new Font("Arial", Font.BOLD, 18));  // Texte plus gros
+			        prise.setFocusPainted(false);
+			        prise.setPreferredSize(new Dimension(300, 60)); // Bouton plus grand
+	
+			        maintien.setBackground(Color.decode("#84B59F"));
+			        maintien.setForeground(Color.white);
+			        maintien.setFont(new Font("Arial", Font.BOLD, 18));  // Texte plus gros
+			        maintien.setFocusPainted(false);
+			        maintien.setPreferredSize(new Dimension(300, 60)); // Bouton plus grand
+
+			     // Utiliser GridBagLayout pour positionner les éléments
+			        GridBagConstraints gbc = new GridBagConstraints();
+			        gbc.insets = new Insets(10, 10, 10, 10);  // Ajouter de l'espace entre les éléments
+			        gbc.anchor = GridBagConstraints.CENTER; // Centrer les éléments
+
+			        // Placer le logo plus haut
+			        gbc.gridx = 0;
+			        gbc.gridy = 0;
+			        gbc.gridwidth = 2;
+			        Objectif.add(imageLabel, gbc);
+
+			        // Placer le titre "Quel est votre objectif"
+			        gbc.gridx = 0;
+			        gbc.gridy = 1;
+			        gbc.gridwidth = 2;
+			        Objectif.add(titleLabel, gbc);
+
+			        // Placer les boutons (avec inversement des boutons)
+			        gbc.gridx = 0;
+			        gbc.gridy = 2;
+			        gbc.gridwidth = 1;
+			        Objectif.add(prise, gbc);  // Bouton "Prise de poids" à la première position
+
+			        gbc.gridx = 1;
+			        gbc.gridy = 2;
+			        Objectif.add(perte, gbc);  // Bouton "Perte de poids" à la deuxième position
+
+			        gbc.gridx = 0;
+			        gbc.gridy = 3;
+			        gbc.gridwidth = 2;
+			        Objectif.add(maintien, gbc);  // Bouton "Maintien de poids" en dessous
+		
+			        
+			        
 			//ACTION BOUTON MAINTIEN	
 			maintien.addActionListener(new ActionListener(){
 			    @Override
@@ -685,38 +732,92 @@ JPanel connexion() {
 	
 	JPanel MenuRepas() {
 		
-		JPanel panel = new JPanel(new GridLayout(3, 1, 10, 10));
-        panel.setBackground(new Color(184, 197, 76));
-        //add(panel, BorderLayout.CENTER);
+		JPanel panel = new JPanel();
+			panel.setLayout(new GridBagLayout());
+			panel.setBackground(Color.decode("#f0f8f0"));  // Fond légèrement vert
+			
+			
+			ImageIcon originalImageIcon = new ImageIcon("image/logo.png");  // Remplacez par le chemin de votre image
+	        Image originalImage = originalImageIcon.getImage();
+	        Image resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);  // Redimensionner l'image
+	        ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
+	        JLabel imageLabel = new JLabel(resizedImageIcon);
 
-        JLabel label = new JLabel("Combien de repas dans la semaine ?", JLabel.CENTER);
-        label.setForeground(Color.WHITE);
-        panel.add(label);
-
-        JTextField repasField = new JTextField(10);
-        panel.add(repasField);
-
-        JButton validerButton = new JButton("Valider");
-        validerButton.setBackground(new Color(114, 104, 192));
-        validerButton.setForeground(Color.WHITE);
-        panel.add(validerButton);
-
-        //validerButton.addActionListener(e -> validerRepas());
+	        
+	        JLabel titleLabel = new JLabel("Combien de repas par jour ?", JLabel.CENTER);
+		        titleLabel.setFont(new Font("Book Antiqua", Font.BOLD, 36));
+		        titleLabel.setForeground(Color.decode("#84B59F")); 
+	        
         
+		    JTextField repasField = new JTextField(10);
+		        repasField.setFont(new Font("Arial", Font.PLAIN, 14));
+		        repasField.setBorder(BorderFactory.createLineBorder(Color.decode("#84B59F"), 2));
+
+
+		    JButton validerButton = new JButton("Valider");
+		        validerButton.setBackground(Color.decode("#84B59F"));
+		        validerButton.setForeground(Color.white);
+		        validerButton.setFont(new Font("Arial", Font.BOLD, 14));
+		        validerButton.setFocusPainted(false);
+		        validerButton.setPreferredSize(new Dimension(300, 40)); 
+		        
+		        
+		    JButton changerButton = new JButton("Changer d'objectif");
+			    changerButton.setBackground(Color.decode("#84B59F"));
+			    changerButton.setForeground(Color.white);
+			    changerButton.setFont(new Font("Arial", Font.BOLD, 14));
+			    changerButton.setFocusPainted(false);
+			    changerButton.setPreferredSize(new Dimension(300, 40));     
+		        
+		
+		//POSITIONNEMENT APPARENCE
+			 // Utiliser GridBagLayout pour positionner les éléments
+		        GridBagConstraints gbc = new GridBagConstraints();
+		        gbc.insets = new Insets(10, 10, 10, 10);  // Ajouter de l'espace entre les éléments
+		        gbc.anchor = GridBagConstraints.CENTER; // Centrer les éléments
+		        
+		        
+		        // Placer le logo plus haut
+		        gbc.gridx = 0;
+		        gbc.gridy = 0;
+		        gbc.gridwidth = 2;
+		        panel.add(imageLabel, gbc);
+
+		        // Placer le titre "Nombre de repas par jour"
+		        gbc.gridx = 0;
+		        gbc.gridy = 1;
+		        gbc.gridwidth = 2;
+		        panel.add(titleLabel, gbc);
+
+		        // Placer le champ de texte pour le nombre de repas
+		        gbc.gridx = 0;
+		        gbc.gridy = 2;
+		        gbc.gridwidth = 2;
+		        panel.add(repasField, gbc);
+
+		        // Placer le bouton "Valider"
+		        gbc.gridx = 0;
+		        gbc.gridy = 3;
+		        panel.add(validerButton, gbc);
+
+		        // Placer le bouton "Changer d'objectif"
+		        gbc.gridx = 0;
+		        gbc.gridy = 4;
+		        panel.add(changerButton, gbc);    
+			    
+			    //ACTIONS DES BOUTONS
         validerButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			frame.setContentPane(Objectif());
+    			frame.revalidate();
+                frame.repaint();
     		}});
         
-
-        JButton changerButton = new JButton("Changer objectif");
-        changerButton.setBackground(new Color(114, 104, 192));
-        changerButton.setForeground(Color.WHITE);
-        panel.add(changerButton, BorderLayout.SOUTH);
-
         changerButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			frame.setContentPane(Objectif());
+    			frame.revalidate();
+                frame.repaint();
     		}});
         //changerButton.addActionListener(e -> changerObjectif());
         
