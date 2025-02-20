@@ -1,2 +1,2 @@
-Identifiant;Mot de passe;Nom;Prenom;Age;Taille;Poids;Sexe;objectif
-test;test;Lea;Mila;19;67.0;163.0;F;prise
+Identifiant;Mot de passe;Nom;Prenom;Age;Taille;Poids;Sexe;objectif;Niveau d'activité physique
+l;l;Lucas;Michallat;22;173.0;68.0;H;prise;1.725;1.725;1.725

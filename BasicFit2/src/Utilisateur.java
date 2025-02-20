@@ -49,7 +49,7 @@ try {
 
 System.out.println("Fichier CSV manquant.Création...");
 writer = new BufferedWriter(new FileWriter(fichierCSV));
-writer.write("Identifiant;Mot de passe;Nom;Prenom;Age;Taille;Poids;Sexe;objectif");
+writer.write("Identifiant;Mot de passe;Nom;Prenom;Age;Taille;Poids;Sexe;objectif;Niveau d'activité physique");
 writer.newLine();
 writer.close();
 System.out.println("Fichier CSV Créé");

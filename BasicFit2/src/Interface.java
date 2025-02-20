@@ -123,6 +123,8 @@ public class Interface extends Utilisateur{
 		frame.setSize(800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
+		
 		frame.setLocationRelativeTo(null); // Centrer la fenêtre
 		
 		frame.setTitle("FIT App");
@@ -479,7 +481,7 @@ public class Interface extends Utilisateur{
 		                frame.revalidate();
 		                frame.repaint();
 						
-						inscriptionUtilisateur(strid,strmdp,strNom,strPrenom,intAge,floatPoids,floatTaille,strSexe,strobj);
+						inscriptionUtilisateur(strid,strmdp,strNom,strPrenom,intAge,floatTaille,floatPoids,strSexe,strobj);
 						
 					}catch (Exception ex){
 			            // Affiche une boîte de dialogue en cas d'erreur
@@ -596,7 +598,7 @@ public class Interface extends Utilisateur{
 				                    System.out.println(getPassword());
 		
 				                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
-				                        colonnes[8] = "maintien"; // Modifier la 9ᵉ colonne
+				                        colonnes[8] = "maintien;"; // Modifier la 9ᵉ colonne
 				                    }
 		
 				                    lignes.add(String.join(";", colonnes));
@@ -645,7 +647,7 @@ public class Interface extends Utilisateur{
 			                    System.out.println(getPassword());
 	
 			                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
-			                        colonnes[8] = "prise"; // Modifier la 9ᵉ colonne
+			                        colonnes[8] = "prise;"; // Modifier la 9ᵉ colonne
 			                    }
 	
 			                    lignes.add(String.join(";", colonnes));
@@ -693,7 +695,7 @@ public class Interface extends Utilisateur{
 			                    System.out.println(getPassword());
 	
 			                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
-			                        colonnes[8] = "perte"; // Modifier la 9ᵉ colonne
+			                        colonnes[8] = "perte;"; // Modifier la 9ᵉ colonne
 			                    }
 	
 			                    lignes.add(String.join(";", colonnes));
@@ -808,7 +810,7 @@ public class Interface extends Utilisateur{
 			    //ACTIONS DES BOUTONS
         validerButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			frame.setContentPane(Objectif());
+    			frame.setContentPane(Activite());
     			frame.revalidate();
                 frame.repaint();
     		}});
@@ -828,4 +830,288 @@ public class Interface extends Utilisateur{
 		
 	}
 	
+	JPanel Activite (){
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 788, 565);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JButton nvActivite1 = new JButton("Sédentaire");
+		nvActivite1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			    	String inputFile = "utilisateurs.csv";
+			    	List<String> lignes = new ArrayList<>();
+			    	
+			    	try {
+			            // Lire et modifier les lignes
+			            try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
+			                String ligne; // Déclaration de la variable ligne pour lire les lignes
+			                while ((ligne = br.readLine()) != null) {
+			                    String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
+			                    
+			                    System.out.println(getPseudo());
+			                    System.out.println(getPassword());
+	
+			                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
+			                        colonnes[9] = "1.2"; // Modifier la 9ᵉ colonne
+			                    }
+	
+			                    lignes.add(String.join(";", colonnes));
+			                }
+			                br.close();  // La fermeture de br est déjà gérée par try-with-resources
+	
+			                // Réécriture du fichier avec la liste des lignes
+			                BufferedWriter bw = new BufferedWriter(new FileWriter(inputFile));
+			                for (String ligneReecriture : lignes) {  // Changer le nom de la variable ici
+			                    bw.write(ligneReecriture);
+			                    bw.newLine();
+			                }
+			                bw.close();
+			                
+			                
+			                System.out.println("Fichier mis à jour avec succès !");
+			            }
+			        } catch (IOException e1) {
+			            e1.printStackTrace();
+			        }
+			    }
+			});      
+		nvActivite1.setBounds(144, 164, 89, 23);
+		panel.add(nvActivite1);
+		
+		JLabel lblNewLabel = new JLabel("Quel est ton niveau d'activité physique ? ");
+		lblNewLabel.setBounds(341, 9, 200, 14);
+		panel.add(lblNewLabel);
+		
+		JButton nvActivite2 = new JButton("Légèrement actif");
+		nvActivite2.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+	    	String inputFile = "utilisateurs.csv";
+	    	List<String> lignes = new ArrayList<>();
+	    	
+	    	try {
+	            // Lire et modifier les lignes
+	            try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
+	                String ligne; // Déclaration de la variable ligne pour lire les lignes
+	                while ((ligne = br.readLine()) != null) {
+	                    String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
+	                    
+	                    System.out.println(getPseudo());
+	                    System.out.println(getPassword());
+
+	                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
+	                        colonnes[9] = "1.375"; // Modifier la 9ᵉ colonne
+	                    }
+
+	                    lignes.add(String.join(";", colonnes));
+	                }
+	                br.close();  // La fermeture de br est déjà gérée par try-with-resources
+
+	                // Réécriture du fichier avec la liste des lignes
+	                BufferedWriter bw = new BufferedWriter(new FileWriter(inputFile));
+	                for (String ligneReecriture : lignes) {  // Changer le nom de la variable ici
+	                    bw.write(ligneReecriture);
+	                    bw.newLine();
+	                }
+	                bw.close();
+	                
+	                
+	                System.out.println("Fichier mis à jour avec succès !");
+	            }
+	        } catch (IOException e1) {
+	            e1.printStackTrace();
+	        }
+	    }
+	});  
+		nvActivite2.setBounds(144, 220, 135, 23);
+		panel.add(nvActivite2);
+		
+		JButton nvActivite3 = new JButton("Modérément actif");
+		nvActivite3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		    	String inputFile = "utilisateurs.csv";
+		    	List<String> lignes = new ArrayList<>();
+		    	
+		    	try {
+		            // Lire et modifier les lignes
+		            try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
+		                String ligne; // Déclaration de la variable ligne pour lire les lignes
+		                while ((ligne = br.readLine()) != null) {
+		                    String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
+		                    
+		                    System.out.println(getPseudo());
+		                    System.out.println(getPassword());
+
+		                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
+		                        colonnes[9] = "1.55"; // Modifier la 9ᵉ colonne
+		                    }
+
+		                    lignes.add(String.join(";", colonnes));
+		                }
+		                br.close();  // La fermeture de br est déjà gérée par try-with-resources
+
+		                // Réécriture du fichier avec la liste des lignes
+		                BufferedWriter bw = new BufferedWriter(new FileWriter(inputFile));
+		                for (String ligneReecriture : lignes) {  // Changer le nom de la variable ici
+		                    bw.write(ligneReecriture);
+		                    bw.newLine();
+		                }
+		                bw.close();
+		                
+		                
+		                System.out.println("Fichier mis à jour avec succès !");
+		            }
+		        } catch (IOException e1) {
+		            e1.printStackTrace();
+		        }
+		    }
+		});  
+		nvActivite3.setBounds(144, 269, 135, 23);
+		panel.add(nvActivite3);
+		
+		JButton nvActivite4 = new JButton("Très actif");
+		nvActivite4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		    	String inputFile = "utilisateurs.csv";
+		    	List<String> lignes = new ArrayList<>();
+		    	
+		    	try {
+		            // Lire et modifier les lignes
+		            try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
+		                String ligne; // Déclaration de la variable ligne pour lire les lignes
+		                while ((ligne = br.readLine()) != null) {
+		                    String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
+		                    
+		                    System.out.println(getPseudo());
+		                    System.out.println(getPassword());
+
+		                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
+		                        colonnes[9] = "1.725"; // Modifier la 9ᵉ colonne
+		                    }
+
+		                    lignes.add(String.join(";", colonnes));
+		                }
+		                br.close();  // La fermeture de br est déjà gérée par try-with-resources
+
+		                // Réécriture du fichier avec la liste des lignes
+		                BufferedWriter bw = new BufferedWriter(new FileWriter(inputFile));
+		                for (String ligneReecriture : lignes) {  // Changer le nom de la variable ici
+		                    bw.write(ligneReecriture);
+		                    bw.newLine();
+		                }
+		                bw.close();
+		                
+		                
+		                System.out.println("Fichier mis à jour avec succès !");
+		            }
+		        } catch (IOException e1) {
+		            e1.printStackTrace();
+		        }
+		    }
+		});  
+		nvActivite4.setBounds(144, 334, 135, 23);
+		panel.add(nvActivite4);
+		
+		JButton nvActivite5 = new JButton("Extrêmement actif");
+		nvActivite5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		    	String inputFile = "utilisateurs.csv";
+		    	List<String> lignes = new ArrayList<>();
+		    	
+		    	try {
+		            // Lire et modifier les lignes
+		            try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
+		                String ligne; // Déclaration de la variable ligne pour lire les lignes
+		                while ((ligne = br.readLine()) != null) {
+		                    String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
+		                    
+		                    System.out.println(getPseudo());
+		                    System.out.println(getPassword());
+
+		                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
+		                        colonnes[9] = "1.9"; // Modifier la 9ᵉ colonne
+		                    }
+
+		                    lignes.add(String.join(";", colonnes));
+		                }
+		                br.close();  // La fermeture de br est déjà gérée par try-with-resources
+
+		                // Réécriture du fichier avec la liste des lignes
+		                BufferedWriter bw = new BufferedWriter(new FileWriter(inputFile));
+		                for (String ligneReecriture : lignes) {  // Changer le nom de la variable ici
+		                    bw.write(ligneReecriture);
+		                    bw.newLine();
+		                }
+		                bw.close();
+		                
+		                
+		                System.out.println("Fichier mis à jour avec succès !");
+		            }
+		        } catch (IOException e1) {
+		            e1.printStackTrace();
+		        }
+		    }
+		});  
+		nvActivite5.setBounds(144, 388, 135, 23);
+		panel.add(nvActivite5);
+		
+		JLabel lblNewLabel_1 = new JLabel("Très peu ou pas d'exercice, travail de bureau, mode de vie inactif.");
+		lblNewLabel_1.setBounds(362, 168, 266, 14);
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Activité physique légère 1-3 jours/semaine (marche, petits exercices).");
+		lblNewLabel_1_1.setBounds(362, 224, 266, 14);
+		panel.add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("Sport/exercice modéré 3-5 jours/semaine (fitness, jogging, vélo).");
+		lblNewLabel_1_1_1.setBounds(362, 273, 266, 14);
+		panel.add(lblNewLabel_1_1_1);
+		
+		JLabel lblNewLabel_1_1_1_1 = new JLabel("Entraînement intense 6-7 jours/semaine (sport régulier, travail physique).");
+		lblNewLabel_1_1_1_1.setBounds(362, 338, 266, 14);
+		panel.add(lblNewLabel_1_1_1_1);
+		
+		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Athlète, travail physique intense, plusieurs entraînements par jour.");
+		lblNewLabel_1_1_1_1_1.setBounds(362, 392, 266, 14);
+		panel.add(lblNewLabel_1_1_1_1_1);
+		
+		JButton btnValiderActivier = new JButton("Valider");
+		btnValiderActivier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		    	String inputFile = "utilisateurs.csv";
+		    	List<String> lignes = new ArrayList<>();
+		    	
+		    	try {
+		            // Lire et modifier les lignes
+		            try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
+		                String ligne; // Déclaration de la variable ligne pour lire les lignes
+		                while ((ligne = br.readLine()) != null) {
+		                    String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
+		                    
+		                    System.out.println(getPseudo());
+		                    System.out.println(getPassword());
+
+		                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
+		                       double besoin = BesoinCalorique.calculerBesoin(Integer.parseInt(colonnes[4]), Double.parseDouble(colonnes[6]), Double.parseDouble(colonnes[5]), colonnes[7], Double.parseDouble(colonnes[9]),colonnes[8]);
+		                       System.out.println("Besoin de "+besoin+" kcal");
+		                       Repas.trouverRepas(besoin);
+		                    }
+
+		                  
+		                }
+		                br.close();  // La fermeture de br est déjà gérée par try-with-resources
+
+		                
+		                
+		                System.out.println("Fichier mis à jour avec succès !");
+		            }
+		        } catch (IOException e1) {
+		            e1.printStackTrace();
+		        }
+		    }
+		});  
+		btnValiderActivier.setBounds(362, 392, 266, 14);
+		panel.add(btnValiderActivier);
+		return panel;
+	}
 }
