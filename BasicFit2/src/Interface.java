@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -37,6 +38,8 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.ButtonGroup;
+
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
@@ -55,8 +58,10 @@ public class Interface extends Utilisateur{
 	private JTextField Taille;
 	private JTextField txtPagePrincipal;
 	private JTextField Sexe;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField userText;
+	private JTextField passwordText;
+	private static String choix = "";
+	private static String coefChoix;
 
 	private String pseudo;
 	public String getPseudo() {
@@ -75,6 +80,7 @@ public class Interface extends Utilisateur{
 
 
 	private String password;
+
 
 
 
@@ -120,7 +126,7 @@ public class Interface extends Utilisateur{
 
 		
 		frame = new JFrame();
-		frame.setSize(800, 600);
+		frame.setSize(1000, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -138,6 +144,7 @@ public class Interface extends Utilisateur{
 		//frame.setContentPane(inscription());
 		//frame.setContentPane(Objectif());
 		//frame.setContentPane(MenuRepas());
+		//frame.setContentPane(Activite());
 
 		
 	}
@@ -294,7 +301,7 @@ public class Interface extends Utilisateur{
 		                if (utilisateurTrouve) {
 		                    JOptionPane.showMessageDialog(frame, "Connexion réussie !");
 		                    
-		                    frame.setContentPane(Objectif());
+		                    frame.setContentPane(RecommandationChef());
 			                frame.revalidate();
 			                frame.repaint();
 			                
@@ -617,7 +624,7 @@ public class Interface extends Utilisateur{
 				                System.out.println("Fichier mis à jour avec succès !");
 				            }
 			            
-				            frame.setContentPane(MenuRepas());
+				            frame.setContentPane(Activite());
 			                frame.revalidate();
 			                frame.repaint();
 	
@@ -666,7 +673,7 @@ public class Interface extends Utilisateur{
 			                System.out.println("Fichier mis à jour avec succès !");
 			            }
 			            
-			            frame.setContentPane(MenuRepas());
+			            frame.setContentPane(Activite());
 		                frame.revalidate();
 		                frame.repaint();
 	
@@ -714,7 +721,7 @@ public class Interface extends Utilisateur{
 			                System.out.println("Fichier mis à jour avec succès !");
 			            }
 			            
-			            frame.setContentPane(MenuRepas());
+			            frame.setContentPane(Activite());
 		                frame.revalidate();
 		                frame.repaint();
 	
@@ -731,7 +738,7 @@ public class Interface extends Utilisateur{
 	}
 	
 	
-	
+	//PAGE CHOIX REPAS
 	JPanel MenuRepas() {
 		
 		JPanel panel = new JPanel();
@@ -808,9 +815,63 @@ public class Interface extends Utilisateur{
 		        panel.add(changerButton, gbc);    
 			    
 			    //ACTIONS DES BOUTONS
+		        
+		        
         validerButton.addActionListener(new ActionListener() {
-    		public void actionPerformed(ActionEvent e) {
-    			frame.setContentPane(Activite());
+    		public void actionPerformed(ActionEvent e) {   			
+
+    	            String inputFile = "utilisateurs.csv";
+    	            List<String> lignes = new ArrayList<>();
+
+    	            try {
+    	                // Lire et modifier les lignes
+    	                try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
+    	                    String ligne;
+    	                    while ((ligne = br.readLine()) != null) {
+    	                        String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
+
+    	                        System.out.println(getPseudo());
+    	                        System.out.println(getPassword());
+
+    	                        if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
+    	                        	String nbRepas = repasField.getText();
+    	                            colonnes[10] = nbRepas; // Modifier la 9ᵉ colonne
+    	                        }
+
+//    	                        if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
+//    	                            double besoin = BesoinCalorique.calculerBesoin(
+//    	                                Integer.parseInt(colonnes[4]), 
+//    	                                Double.parseDouble(colonnes[6]), 
+//    	                                Double.parseDouble(colonnes[5]), 
+//    	                                colonnes[7], 
+//    	                                Double.parseDouble(colonnes[9]), 
+//    	                                colonnes[8]
+//    	                            );
+//    	                            
+//    	                            String test = Repas.trouverRepas(besoin);
+//    	                            
+//    	                        }
+    	                        
+
+    	                        lignes.add(String.join(";", colonnes));
+    	                    }
+    	                }
+
+    	                // Réécriture du fichier avec la liste des lignes
+    	                BufferedWriter bw = new BufferedWriter(new FileWriter(inputFile));
+    	                for (String ligneReecriture : lignes) {  
+    	                    bw.write(ligneReecriture);
+    	                    bw.newLine();
+    	                }
+    	                bw.close();
+
+    	                System.out.println("Fichier mis à jour avec succès !");
+    	            } catch (IOException e1) {
+    	                e1.printStackTrace();
+    	            }
+    	        
+    	  
+    			frame.setContentPane(RecommandationChef());
     			frame.revalidate();
                 frame.repaint();
     		}});
@@ -830,288 +891,336 @@ public class Interface extends Utilisateur{
 		
 	}
 	
-	JPanel Activite (){
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 788, 565);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
-		
-		JButton nvActivite1 = new JButton("Sédentaire");
-		nvActivite1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			    	String inputFile = "utilisateurs.csv";
-			    	List<String> lignes = new ArrayList<>();
-			    	
-			    	try {
-			            // Lire et modifier les lignes
-			            try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
-			                String ligne; // Déclaration de la variable ligne pour lire les lignes
-			                while ((ligne = br.readLine()) != null) {
-			                    String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
-			                    
-			                    System.out.println(getPseudo());
-			                    System.out.println(getPassword());
-	
-			                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
-			                        colonnes[9] = "1.2"; // Modifier la 9ᵉ colonne
-			                    }
-	
-			                    lignes.add(String.join(";", colonnes));
-			                }
-			                br.close();  // La fermeture de br est déjà gérée par try-with-resources
-	
-			                // Réécriture du fichier avec la liste des lignes
-			                BufferedWriter bw = new BufferedWriter(new FileWriter(inputFile));
-			                for (String ligneReecriture : lignes) {  // Changer le nom de la variable ici
-			                    bw.write(ligneReecriture);
-			                    bw.newLine();
-			                }
-			                bw.close();
-			                
-			                
-			                System.out.println("Fichier mis à jour avec succès !");
-			            }
-			        } catch (IOException e1) {
-			            e1.printStackTrace();
-			        }
-			    }
-			});      
-		nvActivite1.setBounds(144, 164, 89, 23);
-		panel.add(nvActivite1);
-		
-		JLabel lblNewLabel = new JLabel("Quel est ton niveau d'activité physique ? ");
-		lblNewLabel.setBounds(341, 9, 200, 14);
-		panel.add(lblNewLabel);
-		
-		JButton nvActivite2 = new JButton("Légèrement actif");
-		nvActivite2.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-	    	String inputFile = "utilisateurs.csv";
-	    	List<String> lignes = new ArrayList<>();
-	    	
-	    	try {
-	            // Lire et modifier les lignes
-	            try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
-	                String ligne; // Déclaration de la variable ligne pour lire les lignes
-	                while ((ligne = br.readLine()) != null) {
-	                    String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
-	                    
-	                    System.out.println(getPseudo());
-	                    System.out.println(getPassword());
 
-	                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
-	                        colonnes[9] = "1.375"; // Modifier la 9ᵉ colonne
-	                    }
+	// PAGE ACTIVITE
+	JPanel Activite() {
+	    JPanel panel = new JPanel();
+	    panel.setBackground(Color.decode("#f0f8f0"));
 
-	                    lignes.add(String.join(";", colonnes));
+	    JLabel titleLabel = new JLabel("Quel est ton niveau d'activité physique ?", JLabel.CENTER);
+	    titleLabel.setFont(new Font("Book Antiqua", Font.BOLD, 26));
+	    titleLabel.setForeground(Color.decode("#5A8F7B"));
+	    titleLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 20, 0)); // Espacement ajusté
+
+	    // AGENCEMENT VISUEL
+	    JPanel contentPanel = new JPanel(new GridBagLayout());
+	    contentPanel.setBackground(Color.decode("#f0f8f0"));
+
+	    GridBagConstraints gbc = new GridBagConstraints();
+	    gbc.insets = new Insets(10, 15, 10, 15);
+	    gbc.anchor = GridBagConstraints.WEST;
+
+	    // Panel des boutons à gauche
+	    JPanel buttonPanel = new JPanel();
+	    buttonPanel.setLayout(new GridLayout(5, 1, 15, 15)); // Espacement augmenté
+	    buttonPanel.setBackground(Color.decode("#f0f8f0"));
+
+	    // Panel pour la description à droite
+	    JPanel descriptionPanel = new JPanel(new BorderLayout());
+	    descriptionPanel.setBackground(Color.decode("#DFF5E5"));
+	    descriptionPanel.setBorder(BorderFactory.createLineBorder(Color.decode("#84B59F"), 3, true)); // Bord arrondi
+	    descriptionPanel.setPreferredSize(new Dimension(350, 170));
+
+	    JLabel descriptionLabel = new JLabel("<html><center>Sélectionnez une activité<br>pour voir sa description</center></html>", JLabel.CENTER);
+	    descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+	    descriptionLabel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
+	    descriptionPanel.add(descriptionLabel, BorderLayout.CENTER);
+
+	    // Liste des activités et leurs descriptions
+	    String[] activites = {
+	        "Sédentaire",
+	        "Légèrement actif",
+	        "Modérément actif",
+	        "Très actif",
+	        "Extrêmement actif"
+	    };
+
+	    String[] descriptions = {
+	        "<html><b>Sédentaire :</b><br>Peu ou pas d'activité physique.</html>",
+	        "<html><b>Légèrement actif :</b><br>Un peu de marche ou sport léger (1-3 jours/semaine).</html>",
+	        "<html><b>Modérément actif :</b><br>Exercice modéré 3-5 jours/semaine.</html>",
+	        "<html><b>Très actif :</b><br>Exercice intense 6-7 jours/semaine.</html>",
+	        "<html><b>Extrêmement actif :</b><br>Activité physique intense et travail physique exigeant.</html>"
+	    };
+
+	    // Création des boutons avec un ButtonGroup
+	    ButtonGroup group = new ButtonGroup();
+
+	    for (int i = 0; i < activites.length; i++) {
+	        JRadioButton button = new JRadioButton(activites[i]);
+	        button.setFont(new Font("Arial", Font.BOLD, 16));
+	        button.setBackground(Color.decode("#f0f8f0"));
+	        button.setActionCommand(activites[i]); // Utiliser l'activité en tant qu'actionCommand
+	        button.setBorder(BorderFactory.createLineBorder(Color.decode("#84B59F"), 2, true)); // Bordure verte
+	        button.setFocusPainted(false);
+	        button.setPreferredSize(new Dimension(220, 40));
+	        group.add(button);
+	        buttonPanel.add(button);
+
+	        // Ajouter une action pour afficher la description et stocker la sélection
+	        button.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                String choix = e.getActionCommand();
+	                descriptionLabel.setText(descriptions[getIndex(activites, choix)]);
+
+	                // Associer le coefficient selon l'activité choisie
+	                switch (choix) {
+	                    case "Sédentaire":
+	                        coefChoix = "1.2";
+	                        break;
+	                    case "Légèrement actif":
+	                        coefChoix = "1.375";
+	                        break;
+	                    case "Modérément actif":
+	                        coefChoix = "1.55";
+	                        break;
+	                    case "Très actif":
+	                        coefChoix = "1.725";
+	                        break;
+	                    case "Extrêmement actif":
+	                        coefChoix = "1.9";
+	                        break;
 	                }
-	                br.close();  // La fermeture de br est déjà gérée par try-with-resources
+	            }
+	        });
+	    }
+
+	    // Bouton "Valider"
+	    JButton validerButton = new JButton("Valider");
+	    validerButton.setBackground(Color.decode("#84B59F"));
+	    validerButton.setForeground(Color.white);
+	    validerButton.setFont(new Font("Arial", Font.BOLD, 16));
+	    validerButton.setFocusPainted(false);
+	    validerButton.setPreferredSize(new Dimension(220, 45));
+
+	    validerButton.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            String inputFile = "utilisateurs.csv";
+	            List<String> lignes = new ArrayList<>();
+
+	            try {
+	                // Lire et modifier les lignes
+	                try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
+	                    String ligne;
+	                    while ((ligne = br.readLine()) != null) {
+	                        String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
+
+	                        System.out.println(getPseudo());
+	                        System.out.println(getPassword());
+
+	                        if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
+	                            colonnes[9] = coefChoix; // Modifier la 9ᵉ colonne
+	                        }
+
+
+
+	                        lignes.add(String.join(";", colonnes));
+	                    }
+	                }
 
 	                // Réécriture du fichier avec la liste des lignes
 	                BufferedWriter bw = new BufferedWriter(new FileWriter(inputFile));
-	                for (String ligneReecriture : lignes) {  // Changer le nom de la variable ici
+	                for (String ligneReecriture : lignes) {  
 	                    bw.write(ligneReecriture);
 	                    bw.newLine();
 	                }
 	                bw.close();
-	                
-	                
+
 	                System.out.println("Fichier mis à jour avec succès !");
+	            } catch (IOException e1) {
+	                e1.printStackTrace();
 	            }
-	        } catch (IOException e1) {
-	            e1.printStackTrace();
+    			frame.setContentPane(RecommandationChef());
+    			frame.revalidate();
+                frame.repaint();
+	        }
+	    });
+
+	    // Ajout des éléments au contentPanel
+	    gbc.gridx = 0;
+	    gbc.gridy = 0;
+	    contentPanel.add(buttonPanel, gbc);
+
+	    gbc.gridx = 1;
+	    contentPanel.add(descriptionPanel, gbc);
+
+	    // Ajouter le tout au panel principal
+	    panel.setLayout(new BorderLayout());
+	    panel.add(titleLabel, BorderLayout.NORTH);
+	    panel.add(contentPanel, BorderLayout.CENTER);
+
+	    // Panel pour centrer le bouton valider
+	    JPanel buttonPanelContainer = new JPanel();
+	    buttonPanelContainer.setBackground(Color.decode("#f0f8f0"));
+	    buttonPanelContainer.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+	    buttonPanelContainer.add(validerButton);
+	    panel.add(buttonPanelContainer, BorderLayout.SOUTH);
+
+	    return panel;
+	}
+	
+	
+
+	// Fonction utilitaire pour trouver l'index d'un élément dans un tableau
+	private int getIndex(String[] array, String value) {
+	    for (int i = 0; i < array.length; i++) {
+	        if (array[i].equals(value)) {
+	            return i;
 	        }
 	    }
-	});  
-		nvActivite2.setBounds(144, 220, 135, 23);
-		panel.add(nvActivite2);
-		
-		JButton nvActivite3 = new JButton("Modérément actif");
-		nvActivite3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-		    	String inputFile = "utilisateurs.csv";
-		    	List<String> lignes = new ArrayList<>();
-		    	
-		    	try {
-		            // Lire et modifier les lignes
-		            try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
-		                String ligne; // Déclaration de la variable ligne pour lire les lignes
-		                while ((ligne = br.readLine()) != null) {
-		                    String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
-		                    
-		                    System.out.println(getPseudo());
-		                    System.out.println(getPassword());
+	    return -1; // Valeur non trouvée
 
-		                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
-		                        colonnes[9] = "1.55"; // Modifier la 9ᵉ colonne
-		                    }
-
-		                    lignes.add(String.join(";", colonnes));
-		                }
-		                br.close();  // La fermeture de br est déjà gérée par try-with-resources
-
-		                // Réécriture du fichier avec la liste des lignes
-		                BufferedWriter bw = new BufferedWriter(new FileWriter(inputFile));
-		                for (String ligneReecriture : lignes) {  // Changer le nom de la variable ici
-		                    bw.write(ligneReecriture);
-		                    bw.newLine();
-		                }
-		                bw.close();
-		                
-		                
-		                System.out.println("Fichier mis à jour avec succès !");
-		            }
-		        } catch (IOException e1) {
-		            e1.printStackTrace();
-		        }
-		    }
-		});  
-		nvActivite3.setBounds(144, 269, 135, 23);
-		panel.add(nvActivite3);
-		
-		JButton nvActivite4 = new JButton("Très actif");
-		nvActivite4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-		    	String inputFile = "utilisateurs.csv";
-		    	List<String> lignes = new ArrayList<>();
-		    	
-		    	try {
-		            // Lire et modifier les lignes
-		            try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
-		                String ligne; // Déclaration de la variable ligne pour lire les lignes
-		                while ((ligne = br.readLine()) != null) {
-		                    String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
-		                    
-		                    System.out.println(getPseudo());
-		                    System.out.println(getPassword());
-
-		                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
-		                        colonnes[9] = "1.725"; // Modifier la 9ᵉ colonne
-		                    }
-
-		                    lignes.add(String.join(";", colonnes));
-		                }
-		                br.close();  // La fermeture de br est déjà gérée par try-with-resources
-
-		                // Réécriture du fichier avec la liste des lignes
-		                BufferedWriter bw = new BufferedWriter(new FileWriter(inputFile));
-		                for (String ligneReecriture : lignes) {  // Changer le nom de la variable ici
-		                    bw.write(ligneReecriture);
-		                    bw.newLine();
-		                }
-		                bw.close();
-		                
-		                
-		                System.out.println("Fichier mis à jour avec succès !");
-		            }
-		        } catch (IOException e1) {
-		            e1.printStackTrace();
-		        }
-		    }
-		});  
-		nvActivite4.setBounds(144, 334, 135, 23);
-		panel.add(nvActivite4);
-		
-		JButton nvActivite5 = new JButton("Extrêmement actif");
-		nvActivite5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-		    	String inputFile = "utilisateurs.csv";
-		    	List<String> lignes = new ArrayList<>();
-		    	
-		    	try {
-		            // Lire et modifier les lignes
-		            try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
-		                String ligne; // Déclaration de la variable ligne pour lire les lignes
-		                while ((ligne = br.readLine()) != null) {
-		                    String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
-		                    
-		                    System.out.println(getPseudo());
-		                    System.out.println(getPassword());
-
-		                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
-		                        colonnes[9] = "1.9"; // Modifier la 9ᵉ colonne
-		                    }
-
-		                    lignes.add(String.join(";", colonnes));
-		                }
-		                br.close();  // La fermeture de br est déjà gérée par try-with-resources
-
-		                // Réécriture du fichier avec la liste des lignes
-		                BufferedWriter bw = new BufferedWriter(new FileWriter(inputFile));
-		                for (String ligneReecriture : lignes) {  // Changer le nom de la variable ici
-		                    bw.write(ligneReecriture);
-		                    bw.newLine();
-		                }
-		                bw.close();
-		                
-		                
-		                System.out.println("Fichier mis à jour avec succès !");
-		            }
-		        } catch (IOException e1) {
-		            e1.printStackTrace();
-		        }
-		    }
-		});  
-		nvActivite5.setBounds(144, 388, 135, 23);
-		panel.add(nvActivite5);
-		
-		JLabel lblNewLabel_1 = new JLabel("Très peu ou pas d'exercice, travail de bureau, mode de vie inactif.");
-		lblNewLabel_1.setBounds(362, 168, 266, 14);
-		panel.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_1_1 = new JLabel("Activité physique légère 1-3 jours/semaine (marche, petits exercices).");
-		lblNewLabel_1_1.setBounds(362, 224, 266, 14);
-		panel.add(lblNewLabel_1_1);
-		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Sport/exercice modéré 3-5 jours/semaine (fitness, jogging, vélo).");
-		lblNewLabel_1_1_1.setBounds(362, 273, 266, 14);
-		panel.add(lblNewLabel_1_1_1);
-		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("Entraînement intense 6-7 jours/semaine (sport régulier, travail physique).");
-		lblNewLabel_1_1_1_1.setBounds(362, 338, 266, 14);
-		panel.add(lblNewLabel_1_1_1_1);
-		
-		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Athlète, travail physique intense, plusieurs entraînements par jour.");
-		lblNewLabel_1_1_1_1_1.setBounds(362, 392, 266, 14);
-		panel.add(lblNewLabel_1_1_1_1_1);
-		
-		JButton btnValiderActivier = new JButton("Valider");
-		btnValiderActivier.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-		    	String inputFile = "utilisateurs.csv";
-		    	List<String> lignes = new ArrayList<>();
-		    	
-		    	try {
-		            // Lire et modifier les lignes
-		            try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
-		                String ligne; // Déclaration de la variable ligne pour lire les lignes
-		                while ((ligne = br.readLine()) != null) {
-		                    String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
-		                    
-		                    System.out.println(getPseudo());
-		                    System.out.println(getPassword());
-
-		                    if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
-		                       double besoin = BesoinCalorique.calculerBesoin(Integer.parseInt(colonnes[4]), Double.parseDouble(colonnes[6]), Double.parseDouble(colonnes[5]), colonnes[7], Double.parseDouble(colonnes[9]),colonnes[8]);
-		                       System.out.println("Besoin de "+besoin+" kcal");
-		                       Repas.trouverRepas(besoin);
-		                    }
-
-		                  
-		                }
-		                br.close();  // La fermeture de br est déjà gérée par try-with-resources
-
-		                
-		                
-		                System.out.println("Fichier mis à jour avec succès !");
-		            }
-		        } catch (IOException e1) {
-		            e1.printStackTrace();
-		        }
-		    }
-		});  
-		btnValiderActivier.setBounds(362, 392, 266, 14);
-		panel.add(btnValiderActivier);
-		return panel;
 	}
+	
+	
+	
+	
+	//PAGE RECOMMANDATION
+	JPanel RecommandationChef() {
+	    JPanel panel = new JPanel(new BorderLayout());
+	    panel.setBackground(Color.decode("#f0f8f0"));
+
+	    // 🔹 Titre
+	    JLabel titleLabel = new JLabel("Recommandation du chef", JLabel.CENTER);
+	    titleLabel.setFont(new Font("Book Antiqua", Font.BOLD, 28));
+	    titleLabel.setForeground(Color.decode("#5A8F7B"));
+	    titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+
+	    // 🔹 Conteneur principal
+	    JPanel contentPanel = new JPanel(new GridBagLayout());
+	    contentPanel.setBackground(Color.decode("#f0f8f0"));
+	    GridBagConstraints gbc = new GridBagConstraints();
+	    gbc.insets = new Insets(10, 10, 10, 10);
+	    gbc.fill = GridBagConstraints.HORIZONTAL;
+
+	    // 🟢 Suppression du cadre "Objectif" ici
+	    // Il n'y a plus de panneau "objectifPanel" et on ne l'ajoute plus au `contentPanel`
+	    
+	    String test = "Aucune recommandation trouvée."; // Valeur par défaut
+
+	    String inputFile = "utilisateurs.csv";
+	    List<String> lignes = new ArrayList<>();
+
+	    try {
+	        // Lire et modifier les lignes
+	        try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
+	            String ligne;
+	            while ((ligne = br.readLine()) != null) {
+	                String[] colonnes = ligne.split(";", -1); // Garder les colonnes vides
+
+	                if (colonnes[0].equals(getPseudo()) && colonnes[1].equals(getPassword())) { 
+	                    double besoin = BesoinCalorique.calculerBesoin(
+	                        Integer.parseInt(colonnes[4]), 
+	                        Double.parseDouble(colonnes[6]), 
+	                        Double.parseDouble(colonnes[5]), 
+	                        colonnes[7], 
+	                        Double.parseDouble(colonnes[9]), 
+	                        colonnes[8]
+	                    );
+
+	                    test = Repas.trouverRepas(besoin); // Mise à jour de la variable test
+	                }
+	            }
+	        }
+	    } catch (IOException e1) {
+	        e1.printStackTrace();
+	    }
+
+	    // 🟢 Cadre Recommandation (agrandi)
+	    JPanel recommandationPanel = new JPanel(new BorderLayout());
+	    recommandationPanel.setBackground(Color.decode("#DFF5E5"));
+	    recommandationPanel.setBorder(BorderFactory.createLineBorder(Color.decode("#84B59F"), 3, true));
+	    recommandationPanel.setPreferredSize(new Dimension(800, 600)); // Augmentation de la largeur à 800
+
+	    // 🔹 Utilisation d'une police compatible avec les emojis
+	    Font font = new Font("Segoe UI Emoji", Font.PLAIN, 16); // Choisir une police supportant les emojis
+	    JTextArea recommandationArea = new JTextArea(test);
+	    recommandationArea.setFont(font);
+	    recommandationArea.setBackground(Color.decode("#DFF5E5"));
+	    recommandationArea.setForeground(Color.decode("#333333"));
+	    recommandationArea.setEditable(false);
+	    recommandationArea.setLineWrap(true);
+	    recommandationArea.setWrapStyleWord(true);
+	    recommandationArea.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+	    recommandationPanel.add(recommandationArea, BorderLayout.CENTER);
+
+	    // 🔹 Positionnement des cadres
+	    gbc.gridx = 0;
+	    gbc.gridy = 0;
+	    gbc.gridheight = 2; // Ajout d'une hauteur de grille plus grande pour prendre tout l'espace
+	    contentPanel.add(recommandationPanel, gbc);
+
+	    // 🔹 Boutons
+	    JPanel buttonPanel = new JPanel();
+	    buttonPanel.setBackground(Color.decode("#f0f8f0"));
+
+	    JButton btnNouvelleTentative = new JButton("Nouvelle tentative");
+	    JButton btnChanger = new JButton("Changer Paramètre");
+	    JButton btnQuitter = new JButton("Quitter");
+	    
+	    btnNouvelleTentative.setBackground(Color.decode("#84B59F"));
+	    btnNouvelleTentative.setForeground(Color.white);
+	    btnNouvelleTentative.setFont(new Font("Arial", Font.BOLD, 16));
+	    btnNouvelleTentative.setFocusPainted(false);
+	    btnNouvelleTentative.setPreferredSize(new Dimension(220, 50));
+
+	    btnChanger.setBackground(Color.decode("#84B59F"));
+	    btnChanger.setForeground(Color.white);
+	    btnChanger.setFont(new Font("Arial", Font.BOLD, 16));
+	    btnChanger.setFocusPainted(false);
+	    btnChanger.setPreferredSize(new Dimension(220, 50));
+
+	    btnQuitter.setBackground(Color.decode("#FF6B6B"));
+	    btnQuitter.setForeground(Color.white);
+	    btnQuitter.setFont(new Font("Arial", Font.BOLD, 16));
+	    btnQuitter.setFocusPainted(false);
+	    btnQuitter.setPreferredSize(new Dimension(220, 50));
+
+	    buttonPanel.add(btnNouvelleTentative);
+	    buttonPanel.add(btnChanger);
+	    buttonPanel.add(btnQuitter);
+	    
+	    btnNouvelleTentative.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            frame.setContentPane(RecommandationChef());
+	            frame.revalidate();
+	            frame.repaint();
+	        }
+	    });
+
+	    // 🔹 Action du bouton Quitter
+	    btnQuitter.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            System.exit(0);
+	        }
+	    });
+	    
+	    btnChanger.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            frame.setContentPane(Objectif());
+	            frame.revalidate();
+	            frame.repaint();
+	        }
+	    });
+
+	    // 🔹 Ajout au panel principal
+	    panel.add(titleLabel, BorderLayout.NORTH);
+	    panel.add(contentPanel, BorderLayout.CENTER);
+	    panel.add(buttonPanel, BorderLayout.SOUTH);
+
+	    return panel;
+	}
+
+
+
+
+
 }
+
+

@@ -1,2 +1,3 @@
-Identifiant;Mot de passe;Nom;Prenom;Age;Taille;Poids;Sexe;objectif;Niveau d'activité physique
-l;l;Lucas;Michallat;22;173.0;68.0;H;prise;1.725;1.725;1.725
+Identifiant;Mot de passe;Nom;Prenom;Age;Taille;Poids;Sexe;objectif;Niveau d'activite physique
+caca;caca;WOUTERS;Jade;19;163.0;50.0;F;prise;1.725;1.375;1.2
+l;l;Lucas;Michallat;22;173.0;68.0;H;perte;1.725

@@ -12,71 +12,84 @@ import java.util.Random;
 //import calcul.Plat;
 
 public class Repas {
+	public static String trouverRepas(double besoin) {
+	    StringBuilder result = new StringBuilder();
+	    String csvFile = "bdd_aliment2.csv";
+	    List<Plat> plats = new ArrayList<>();
 
-	   public static void trouverRepas(double besoin){
-	        String csvFile = "bdd_aliment2.csv"; 
-	        List<Plat> plats = new ArrayList<>();
+	    // Chargement des aliments depuis le CSV
+	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+	        String line;
+	        br.readLine(); // Ignorer l'entête
 
-	        // Chargement des aliments depuis le CSV
-	        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-	            String line;
-	            br.readLine(); // Ignorer l'entête
-	            
-	            while ((line = br.readLine()) != null) {
-	                String[] values = line.split(";");
-	                String nom = values[3];
-	                float calories = Float.parseFloat(values[4]);
-	                float proteines = Float.parseFloat(values[5]);
-	                float glucides = Float.parseFloat(values[6]);
-	                float lipides = Float.parseFloat(values[7]);
-	                
-	                Plat aliment = new Plat(nom, calories, proteines, glucides, lipides);
-	                plats.add(aliment);
-	            }
-	        } catch (IOException e) {
-	            e.printStackTrace();
+	        while ((line = br.readLine()) != null) {
+	            String[] values = line.split(";");
+	            String nom = values[3];
+	            float calories = Float.parseFloat(values[4]);
+	            float proteines = Float.parseFloat(values[5]);
+	            float glucides = Float.parseFloat(values[6]);
+	            float lipides = Float.parseFloat(values[7]);
+
+	            Plat aliment = new Plat(nom, calories, proteines, glucides, lipides);
+	            plats.add(aliment);
 	        }
-
-	        // Définir les besoins nutritionnels
-//	        BesoinCalorique personne = new BesoinCalorique(22, 68, 173, "homme", 1.5);
-//	        double besoin = personne.calculerBesoin();
-	        System.out.println("Besoin journalier : " + besoin +" kcal");
-	        
-	        int nombreRepas = 1; 
-	        double besoinProteines = (besoin / nombreRepas) * 0.20 / 4; // en grammes
-	        double besoinLipides = (besoin / nombreRepas) * 0.30 / 9;
-	        double besoinGlucides = (besoin / nombreRepas) * 0.50 / 4;
-
-	        // Trouver un repas optimisé
-	        Map<Plat, Integer> meilleurRepas = trouverMeilleurRepas(plats, besoin / nombreRepas, besoinProteines, besoinLipides, besoinGlucides);
-	        
-	        // Affichage du meilleur repas trouvé
-	        System.out.println("\n🍽️ Meilleur repas trouvé :");
-	        double totalCalories = 0, totalProteines = 0, totalLipides = 0, totalGlucides = 0;
-	        
-	        for (Map.Entry<Plat, Integer> entry : meilleurRepas.entrySet()) {
-	            Plat plat = entry.getKey();
-	            int quantite = entry.getValue();
-	            
-	            double kcal = quantite * plat.kcal() / 100;
-	            double prot = quantite * plat.qteProteines() / 100;
-	            double lip = quantite * plat.qteLipides() / 100;
-	            double glu = quantite * plat.qteGlucides() / 100;
-	            
-	            totalCalories += kcal;
-	            totalProteines += prot;
-	            totalLipides += lip;
-	            totalGlucides += glu;
-
-	            System.out.printf("- %s : %dg (%.1f kcal, %.1fP, %.1fL, %.1fG)\n", plat.getNom(), quantite, kcal, prot, lip, glu);
-	        }
-
-	        System.out.println("\n🔹 Total nutritionnel :");
-	        System.out.printf("Calories : %.1f kcal\n", totalCalories);
-	        System.out.printf("Protéines : %.1f g\n", totalProteines);
-	        System.out.printf("Lipides : %.1f g\n", totalLipides);
-	        System.out.printf("Glucides : %.1f g\n", totalGlucides);
+	    } catch (IOException e) {
+	        return "Erreur lors du chargement du fichier CSV.";
 	    }
+
+	    // Calcul des besoins
+	    result.append("\n🍽️ Besoin journalier : ").append(Math.round(besoin)).append(" kcal\n");
+	    int nombreRepas = 1;
+	    double besoinProteines = (besoin / nombreRepas) * 0.20 / 4;
+	    double besoinLipides = (besoin / nombreRepas) * 0.30 / 9;
+	    double besoinGlucides = (besoin / nombreRepas) * 0.50 / 4;
+	    
+	    result.append(" -Besoin en protéines 💪 : ").append(Math.round(besoinProteines)).append(" g");
+	    result.append("\n -Besoin en lipides 🧈 : ").append(Math.round(besoinLipides)).append(" g");
+	    result.append("\n -Besoin en glucides 🍞 : ").append(Math.round(besoinGlucides)).append(" g");
+	    result.append("\n====================================\n");
+
+
+
+	    // Trouver le meilleur repas
+	    Map<Plat, Integer> meilleurRepas = trouverMeilleurRepas(plats, besoin / nombreRepas, besoinProteines, besoinLipides, besoinGlucides);
+
+	    // Affichage des résultats
+	    result.append("\n🍽️ Proposition pour la journée :\n");
+	    double totalCalories = 0, totalProteines = 0, totalLipides = 0, totalGlucides = 0;
+
+	    for (Map.Entry<Plat, Integer> entry : meilleurRepas.entrySet()) {
+	        Plat plat = entry.getKey();
+	        int quantite = entry.getValue();
+
+	        double kcal = quantite * plat.kcal() / 100;
+	        double prot = quantite * plat.qteProteines() / 100;
+	        double lip = quantite * plat.qteLipides() / 100;
+	        double glu = quantite * plat.qteGlucides() / 100;
+
+	        totalCalories += kcal;
+	        totalProteines += prot;
+	        totalLipides += lip;
+	        totalGlucides += glu;
+
+	        result.append(String.format("\n- %s : %dg\n", plat.getNom(), quantite));
+	        result.append(String.format("    🥗 Calories : %.1f kcal\n", kcal));
+	        result.append(String.format("    💪 Protéines : %.1f g\n", prot));
+	        result.append(String.format("    🧈 Lipides : %.1f g\n", lip));
+	        result.append(String.format("    🍞 Glucides : %.1f g\n", glu));
+	    }
+
+	    result.append("\n====================================\n");
+	    result.append("🔹 Total nutritionnel du repas :\n");
+	    result.append(String.format("    🍽️ Calories : %.1f kcal\n", totalCalories));
+	    result.append(String.format("    💪 Protéines : %.1f g\n", totalProteines));
+	    result.append(String.format("    🧈 Lipides : %.1f g\n", totalLipides));
+	    result.append(String.format("    🍞 Glucides : %.1f g\n", totalGlucides));
+
+	    return result.toString();
+	}
+
+
 
 	    public static Map<Plat, Integer> trouverMeilleurRepas(List<Plat> plats, double besoinCal, double besoinP, double besoinL, double besoinG) {
 	        Random rand = new Random();
